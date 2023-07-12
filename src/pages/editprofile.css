@@ -1,0 +1,103 @@
+.detail {
+    margin-left: 60px;
+  }
+  
+  .detail h4 {
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #B33E86;
+  }
+  
+  .detail_1 {
+    display: flex;
+    width: 1000px;
+    padding-top: 60px;
+  }
+  
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+  }
+  
+  .profile-picture {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border:none;
+    background-image: url('../img/profile.png');
+    background-size: cover;
+    /*사진 기준점*/
+    background-position: center;/*화면을 늘였다 줄였다해도 가운데 정렬돼있음*/
+    margin-bottom: 30px;
+  }
+  
+  .button-container {
+    display: flex;
+    height: 50px;
+  }
+  
+  .profile-edit-button1 {
+    flex: 1;
+    padding: 8px 16px;
+    background-color: #B33E86;
+    color: #FFFFFF;
+    border: 2px solid #B33E86;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  .profile-edit-button2 {
+    flex: 1;
+    padding: 8px 16px;
+    background-color: white;
+    color: #B33E86;
+    border: 2px solid #B33E86;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  .profile_content {
+    width: 100%;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .profile_content label {
+    width: 100px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+ #nickname {
+    border: 1px solid black;
+    width: 100%;
+    padding: 5px;
+  }
+  
+ #introduction {
+    border: 1px solid black;
+    width: 100%;
+    padding: 5px;
+    height: 290px;
+  }
+  
+  .nickname,
+  .introduction {
+    display: flex;
+    align-items: top;
+    gap: 10px;
+  }
+  
+  .profile_content .p-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+  

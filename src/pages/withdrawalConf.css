@@ -1,0 +1,41 @@
+.withdrawalConf {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.confmessage {
+  display: flex;
+  align-items: center;
+}
+
+.message7 {
+  font-weight: bold;
+  margin-top: 12px;
+  font-size: 24px;
+  white-space: nowrap;
+}
+
+.message8 {
+  margin-top: 12px;
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+.confirm-button3 {
+  margin-top: 20px;
+  width: 30%;
+  height: 50px;
+  padding: 8px 16px;
+  background-color: #808080;
+  color: #ffffff;
+  border: 2px solid #808080;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+}
