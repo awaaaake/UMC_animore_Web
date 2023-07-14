@@ -1,3 +1,15 @@
+@font-face { 
+  /* CSS에서는 경로를 지정할 때 슬래시(/)를 사용*/
+  font-family: 'NanumBarunGothic';
+  src: url('./fonts/NanumBarunGothic.eot');
+  src: url('./fonts/NanumBarunGothic.eot') format('embedded-opentype'),
+  url('./fonts/NanumBarunGothic.woff') format('woff');
+}
+
+* {
+  font-family: 'NanumBarunGothic', san-serif;
+}
+
 .Navbar {
   padding: 10px;
 }
@@ -60,6 +72,10 @@ header {
 .menu {
   width: 300px;
   height: 400px;
+}
+
+.menu h4{
+  font-weight: bold;
 }
 
 

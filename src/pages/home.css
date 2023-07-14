@@ -2,15 +2,15 @@
   display:flex;
   flex-direction: column;
   margin-left: 60px;
+  width: 1000px;
 }
 
 .pet-profile {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   border: 3.5px solid #B33E86;
   padding: 20px;
-  width: 1000px;
   height: 140px;
 }
 
@@ -21,9 +21,13 @@
   border-radius: 50%;
 }
 
+.info2{
+  display: flex;
+  align-items: center;
+}
+
 .info {
   margin-left: 30px;
-  margin-right: 250px;
 }
 
 .info h4 {
