@@ -89,6 +89,7 @@
     margin-bottom: 10px;
 }
 
+
 .nav-btn {
     font-size: 18px;
     font-weight: bold;
@@ -124,9 +125,11 @@
 .date {
     display: flex;
     flex-direction: column;
-    /* width: 80px; */
     flex-basis: calc(100% / 7);
-    height: 90px;
+    min-height: 90px; 
+    /*예약정보가 추가될수록, 달력칸의 크기가 유동적으로 변하는 코드를 작성. 
+    기존의 크기는 90px인데 예약정보가 추가되면 그에따라 크기가 증가*/
+     /*flex-grow: 1; 속성은 컨테이너 내의 나머지 공간을 flex 아이템들 사이에 균등하게 분배*/
     cursor: pointer;
     padding-left: 2%;
     padding-top: 2%;
@@ -152,15 +155,59 @@
 }
 
 .date.selected {
-    background-color: #3399ff;
-    color: #fff;
+    background-color: #e9aad1;
 }
 
 .date.today {
-    background-color: #66ccff;
-    color: #fff;
+    background-color: #D9D9D9;
 }
 
 .date.holiday {
     color: #ff0000;
 }
+
+/*예약*/
+.reservation-status {
+    display: flex;
+    flex-direction: column; 
+    align-items: end;/*열로지정했으므로 그 수직방향(행)에대해 align-items*/
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-bottom: 1%;
+}
+  
+.status-box {
+    display: inline-block;
+    height: 25px;
+    width: 100px;
+    border-radius: 0 30px 30px 0;
+    margin-right: 10px;
+}
+
+.status-box2 {
+    display: inline-block;
+    height: 20px;
+    width: 95%;
+    border-radius: 0 30px 30px 0;
+    margin-bottom: 5px;
+}
+
+
+.status-box.request,
+.status-box2.request
+{
+    color: #000;
+    background-color: #CEE9FD;
+}
+
+.status-box.confirmed,
+.status-box2.confirmed 
+{
+    color: #000;
+    background-color: #FFC7C7;
+}
+
