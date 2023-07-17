@@ -1,0 +1,166 @@
+.adminhome {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+}
+
+.pet-profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 3.5px solid #B33E86;
+    padding: 2%;
+    min-height: 140px;
+}
+
+.pet-profile img {
+    width: 20%;
+    max-width: 100px;
+    height: auto;
+    border: 2px solid #000;
+    border-radius: 50%;
+}
+
+.info2 {
+    display: flex;
+    align-items: center;
+}
+
+.info {
+    margin-left: 3%;
+    margin-right: 2%;
+}
+
+.info h4 {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.info p {
+    margin-top: 12px;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.history p {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.pet-profile button.edit-profile-button {
+    padding: 1rem 2rem;
+    background-color: #B33E86;
+    color: #FFFFFF;
+    border: 2px solid #B33E86;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.history {
+    margin-top: 2rem;
+    overflow: hidden;
+}
+
+/* 달력 */
+
+.adminhome * {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.adminhome h4 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.calendar {
+    width: 100%;
+    margin-bottom: 5%;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.nav-btn {
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+
+.current-date {
+    background-color: #fff;
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border: 2px solid #000;
+    border-bottom: none;
+    border-right: none;
+}
+
+.day {
+    text-align: center;
+    padding: 5px;
+    border-right: 2px solid #000;
+    background-color: #FAE5F2;
+}
+
+.date {
+    display: flex;
+    flex-direction: column;
+    /* width: 80px; */
+    flex-basis: calc(100% / 7);
+    height: 90px;
+    cursor: pointer;
+    padding-left: 2%;
+    padding-top: 2%;
+    box-sizing: border-box;
+    border-bottom: 2px solid #000;
+    border-right: 2px solid #000;
+}
+
+.dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border: 2px solid #000;
+    border-bottom: none;
+    border-right: none;
+}
+
+.calendar .dates .date.saturday {
+    color: blue;
+}
+
+.calendar .dates .date.sunday {
+    color: red;
+}
+
+.date.selected {
+    background-color: #3399ff;
+    color: #fff;
+}
+
+.date.today {
+    background-color: #66ccff;
+    color: #fff;
+}
+
+.date.holiday {
+    color: #ff0000;
+}
