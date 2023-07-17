@@ -1,8 +1,9 @@
 .home {
-  display:flex;
+  display: flex;
   flex-direction: column;
-  margin-left: 60px;
-  width: 1000px;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
 }
 
 .pet-profile {
@@ -10,25 +11,26 @@
   justify-content: space-between;
   align-items: center;
   border: 3.5px solid #B33E86;
-  padding: 20px;
-  height: 140px;
+  padding: 2%;
+  min-height: 140px;
 }
 
 .pet-profile img {
-  width: 100px;
-  height: 100px;
+  width: 20%;
+  max-width: 100px;
+  height: auto;
   border: 2px solid #000;
   border-radius: 50%;
 }
 
-.info2{
+.info2 {
   display: flex;
   align-items: center;
 }
 
 .info {
-  margin-left: 30px;
-  margin-right: 20px;
+  margin-left: 3%;
+  margin-right: 2%;
 }
 
 .info h4 {
@@ -38,28 +40,29 @@
 
 .info p {
   margin-top: 12px;
-  font-size: 19px;
+  font-size: 1rem;
   white-space: nowrap;
 }
 
 .history p {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: bold;
 }
 
 .pet-profile button.edit-profile-button {
-  padding: 15px 30px;
+  padding: 1rem 2rem;
   background-color: #B33E86;
   color: #FFFFFF;
   border: 2px solid #B33E86;
   border-radius: 10px;
-  font-size: 17px;
+  font-size: 0.85rem;
   font-weight: bold;
   cursor: pointer;
   white-space: nowrap;
 }
 
-.history{
-  margin-top: 40px;
+.history {
+  margin-top: 2rem;
+  overflow: hidden;
 }
 

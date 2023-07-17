@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import './editprofile.css';
+import profile from "../img/profile.png";
 
 function Editprofile(props) {
     let [inputCount, setInputCount] = useState(0);
@@ -21,7 +22,9 @@ function Editprofile(props) {
             <div className='detail_1'>
                 <div className='profile'>
                     <div class="profile">
-                        <div class="profile-picture"></div>
+                        <div className="profile-picture">
+                            <img src={profile} alt="프로필 사진" />
+                        </div>
                         <div class="button-container">
                             <button className="profile-edit-button1">사진 수정</button>
                             <button className="profile-edit-button2">기본 이미지</button>

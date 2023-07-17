@@ -1,9 +1,9 @@
-@font-face { 
+@font-face {
   /* CSS에서는 경로를 지정할 때 슬래시(/)를 사용*/
   font-family: 'NanumBarunGothic';
   src: url('./fonts/NanumBarunGothic.eot');
   src: url('./fonts/NanumBarunGothic.eot') format('embedded-opentype'),
-  url('./fonts/NanumBarunGothic.woff') format('woff');
+    url('./fonts/NanumBarunGothic.woff') format('woff');
 }
 
 * {
@@ -59,7 +59,6 @@ header {
   color: black;
 }
 
-
 .Navbar li:first-child {
   border-left: none;
 }
@@ -72,14 +71,12 @@ header {
 .menu {
   width: 300px;
   height: 400px;
-
 }
 
-.menu h4{
+.menu h4 {
   white-space: nowrap;
   font-weight: bold;
 }
-
 
 .menu ul {
   list-style-type: none;
@@ -93,8 +90,6 @@ header {
   /* 좌우 여백 10px */
   color: #808080;
 }
-
-
 
 .menu li:hover,
 .menu li:focus {
@@ -146,4 +141,47 @@ header {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Responsive Styles */
+
+@media (max-width: 768px) {
+  .logo img {
+    width: 150px;
+    height: 50px;
+  }
+
+  header {
+    margin: 10px 15px 15px 15px;
+  }
+
+  .Navbar ul li {
+    padding: 0 5px;
+  }
+
+  .mypage {
+    flex-direction: column;
+  }
+
+  .menu {
+    width: 95.5%;
+    height: auto;
+    padding: 10px;
+  }
+
+  .menu h4 {
+    text-align: center;
+  }
+
+  .menu ul li {
+    font-weight: bold;
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 10px 0;
+    /* 좌우 여백 10px */
+    color: #808080;
+    text-align: center; /* Add this line to center-align the menu items */
+  }
+
+
 }

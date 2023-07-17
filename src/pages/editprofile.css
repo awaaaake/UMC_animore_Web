@@ -1,37 +1,43 @@
 .detail {
-    margin-left: 60px;
-  }
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+}
+
+.detail h4 {
+  font-weight: bold;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #B33E86;
+}
+
+.detail_1 {
+  display: flex;
+  padding-top: 60px;
+  justify-content: center; /* 가운데 정렬을 위해 추가 */
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  margin-bottom: 30px;
+}
   
-  .detail h4 {
-    font-weight: bold;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #B33E86;
-  }
-  
-  .detail_1 {
-    display: flex;
-    width: 1000px;
-    padding-top: 60px;
-  }
-  
-  .profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 300px;
-  }
-  
-  .profile-picture {
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    border:none;
-    background-image: url('../img/profile.png');
-    background-size: cover;
-    /*사진 기준점*/
-    background-position: center;/*화면을 늘였다 줄였다해도 가운데 정렬돼있음*/
-    margin-bottom: 30px;
-  }
+.profile-picture {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: none;
+  margin-bottom: 30px;
+}
+
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
   
   .button-container {
     display: flex;
@@ -101,3 +107,32 @@
     justify-content: flex-end;
   }
   
+  /* 반응형 웹 스타일 */
+@media screen and (max-width: 768px) {
+  .detail_1 {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  
+  .button-container {
+    flex-direction: column;
+    height: auto;
+    margin-top: 20px;
+  }
+  
+  .profile-edit-button1,
+  .profile-edit-button2 {
+    flex: none;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .profile_content {
+    margin-left: 0;
+  }
+}
