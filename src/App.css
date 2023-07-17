@@ -72,9 +72,11 @@ header {
 .menu {
   width: 300px;
   height: 400px;
+
 }
 
 .menu h4{
+  white-space: nowrap;
   font-weight: bold;
 }
 
