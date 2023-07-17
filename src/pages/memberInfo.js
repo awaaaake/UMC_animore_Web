@@ -21,7 +21,7 @@ function Memberinfo(props) {
                     <div>
                     <button type="submit" className="confirm-button4"
                             onClick={() => {
-                                입력값 === password ? props.navigate("/userinfo-reset") : alert('비밀번호가 틀렸습니다')
+                                입력값 === password ? props.navigate("/mypage/userinfo-reset") : alert('비밀번호가 틀렸습니다')
                             }}
                         >확인</button>
                     </div>

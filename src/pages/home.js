@@ -18,7 +18,7 @@ function Home(props) {
                         <p>반려견 : 봉봉이(포메라니안) / 5살 / 중성화O</p>
                     </div>
                 </div>
-                <button className="edit-profile-button" onClick={() => props.navigate('/profile')}>프로필 수정</button>
+                <button className="edit-profile-button" onClick={() => props.navigate('/mypage/profile')}>프로필 수정</button>
             </div>
             <div className="history">
                 <p>최근 이용 기록</p>

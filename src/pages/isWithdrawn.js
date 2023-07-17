@@ -33,11 +33,11 @@ function IsWithdrawn(props) {
                     </div>
                     <div className="button-group">
                         <button type="button" className="cancel-button"
-                            onClick={() => props.navigate('/withdrawalConf')}
+                            onClick={() => props.navigate('/mypage/withdrawalConf')}
                         >탈퇴확인</button>
                         <button type="submit" className="confirm-button"
                             onClick={() => {
-                                props.navigate("/")
+                                props.navigate("/mypage")
                             }}
                         >탈퇴취소</button>
                     </div>

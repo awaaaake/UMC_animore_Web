@@ -20,7 +20,7 @@ function Withdrawal(props) {
                     <div>
                     <button type="submit" className="confirm-button2"
                         onClick={() => {
-                            입력값 === password ? props.navigate("/iswithdrawn ") : alert('비밀번호가 틀렸습니다')
+                            입력값 === password ? props.navigate("/mypage/iswithdrawn ") : alert('비밀번호가 틀렸습니다')
                         }}
                     >확인</button>
                     </div>
