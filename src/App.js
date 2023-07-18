@@ -12,6 +12,7 @@ import WithdrawalConf from './pages/withdrawalConf';
 import Mypage from './pages/mypage';
 import Adminpage from './pages/adminpage';
 import Adminhome from './pages/adminhome';
+import Adminprofile from './pages/adminprofile';
 
 function App() {
   const navigate = useNavigate();
@@ -50,21 +51,19 @@ function App() {
         {/*관리자 페이지*/ }
         <Route path="/adminpage" element={
           <Adminpage></Adminpage>}>
-          <Route path="profile" element={
-            <Editprofile></Editprofile>
-          }
-          />
           <Route path="" element={
             <Adminhome navigate={navigate}></Adminhome>
           }></Route>
-          <Route path="memberinfo" element={
-            <Memberinfo navigate={navigate}></Memberinfo>
+          <Route path="adminprofile" element={
+            <Adminprofile navigate={navigate}></Adminprofile>
+          }></Route>
+          {/* <Route path="admininfo" element={
+            <Admininfo navigate={navigate}></Admininfo>
           }>
-          </Route>
+          </Route> */}
           <Route path="withdrawal" element={
             <Withdrawal navigate={navigate}></Withdrawal>
-          }>
-          </Route>
+          }></Route>
           <Route path="userinfo-reset" element={
             <Inforeset navigate={navigate}></Inforeset>
           }></Route>

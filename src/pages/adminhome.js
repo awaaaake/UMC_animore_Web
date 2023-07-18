@@ -33,7 +33,7 @@ function Adminhome(props) {
             const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
             const isSelected = date.toDateString() === currentDate.toDateString();
             const isToday = date.toDateString() === new Date().toDateString();
-            const isHoliday = i === 1 || (i === 15 && currentDate.getMonth() === 7); // Example: 1st of the month and August 15th
+            const isHoliday = (i === 15 && currentDate.getMonth() === 7); // Example: 1st of the month and August 15th
 
             const classNames = ["date"];
             if (isSelected) classNames.push("selected");
