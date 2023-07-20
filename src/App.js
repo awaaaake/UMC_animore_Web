@@ -13,6 +13,7 @@ import Mypage from './pages/mypage';
 import Adminpage from './pages/adminpage';
 import Adminhome from './pages/adminhome';
 import Adminprofile from './pages/adminprofile';
+import Isadmin from './pages/isadmin';
 
 function App() {
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ function App() {
           <Route path='*' element={<div>없는 페이지</div>}></Route>
         </Route>
         {/*관리자 페이지*/ }
+        <Route path='/isadmin' element={<Isadmin navigate={navigate}></Isadmin>}></Route>
         <Route path="/adminpage" element={
           <Adminpage></Adminpage>}>
           <Route path="" element={

@@ -3,13 +3,13 @@ import { useState, useEffect } from 'react';
 import { Button, Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 import { Routes, Route, Link, useNavigate, Outlet, useLocation } from 'react-router-dom';
 import Animore_logo from '../img/13.png';
+import Isadmin from './isadmin';
 
 function Adminpage() {
   const navigate = useNavigate();
   const location = useLocation();
-
   const [activeItem, setActiveItem] = useState('/');
-
+  
   const handleItemClick = (path) => {
     setActiveItem(path);
     navigate(path);
@@ -17,7 +17,7 @@ function Adminpage() {
 
   return (
     <div className="Adminpage">
-      {/*location 객체는 pathname 속성을 포함하고 있으므로, 
+      {/* location 객체는 pathname 속성을 포함하고 있으므로, 
       location.pathname을 사용하여 경로를 비교해야 합니다. */
         location.pathname === '/adminpage/withdrawalConf' ? null : <Header navigate={navigate}></Header>
       }
