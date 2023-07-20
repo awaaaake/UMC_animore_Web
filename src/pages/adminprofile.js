@@ -4,9 +4,13 @@ import profile from "../img/profile.png";
 
 function Adminprofile(props) {
     let [inputCount, setInputCount] = useState(0);
+    const [openingHours, setOpeningHours] = useState("");
+    const [dayOff, setDayOff] = useState("");
+    const [maxReservationCount, setMaxReservationCount] = useState("");
+    const [selectedImage, setSelectedImage] = useState(null);
 
     const countCharacters = (str) => {
-        const regex = /[\x00-\x7F]|[\u3131-\uD79D]|./g; // ASCII 문자, 한글 문자, 그 외의 모든 문자
+        const regex = /[\x00-\x7F]|[\u3131-\uD79D]|./g;
         const matches = str.match(regex);
         return matches ? matches.length : 0;
     };
@@ -16,30 +20,63 @@ function Adminprofile(props) {
         const characterCount = countCharacters(inputValue);
         setInputCount(characterCount);
     };
+
+    const onOpeningHoursChange = (e) => {
+        setOpeningHours(e.target.value);
+    };
+
+    const onDayOffChange = (e) => {
+        setDayOff(e.target.value);
+    };
+
+    const onMaxReservationCountChange = (e) => {
+        setMaxReservationCount(e.target.value);
+    };
+
+    const onImageSelectHandler = (e) => {
+        const file = e.target.files[0];
+        setSelectedImage(file);
+    };
+
     return (
         <div className='detail'>
-            <h4>프로필 수정</h4>
+            <h4>업체 정보 관리</h4>
             <div className='detail_1'>
-                <div className='profile'>
-                    <div class="profile">
-                        <div className="profile-picture">
+                <div className='profile2'>
+                    <div className="admin-profile-picture">
+                        {selectedImage ? (
+                            <img src={URL.createObjectURL(selectedImage)} alt="프로필 사진" />
+                        ) : (
                             <img src={profile} alt="프로필 사진" />
-                        </div>
-                        <div class="button-container">
-                            <button className="profile-edit-button1">사진 수정</button>
-                            <button className="profile-edit-button2">기본 이미지</button>
-                        </div>
+                        )}
                     </div>
+                    <form method="post" encType="multipart/form-data">
+                        <div className="admin-profile-button-container">
+                            <label htmlFor="choose-admin-profile">사진 등록</label>
+                            {/* Hidden file input element */}
+                            <input
+                                type="file"
+                                id="choose-admin-profile"
+                                name="profilePicture"
+                                accept="image/*"
+                                onChange={onImageSelectHandler}
+                            />
+                        </div>
+                    </form>
                 </div>
                 <div className='profile_content'>
                     <div className='nickname'>
-                        <label for="nickname">업체명</label>
-                        <input type="text" id="nickname" name="nickname" placeholder="닉네임을 입력하세요" />
+                        <label htmlFor="nickname">업체명</label>
+                        <input type="text" id="nickname" name="nickname" placeholder="" />
                     </div>
                     <div className='introduction'>
-                        <label for="introduction">업체소개</label>
-                        <textarea id="introduction" name="introduction" placeholder="자기소개를 입력하세요"
-                            onChange={onTextareaHandler} maxLength="1000"
+                        <label htmlFor="introduction">업체소개</label>
+                        <textarea
+                            id="introduction"
+                            name="introduction"
+                            placeholder=""
+                            onChange={onTextareaHandler}
+                            maxLength="1000"
                         ></textarea>
                     </div>
                     <div className='p-wrapper'>
@@ -49,15 +86,52 @@ function Adminprofile(props) {
                         </p>
                     </div>
                     <div className='introduction2'>
-                        <label for="introduction2">태그</label>
-                        <textarea id="introduction2" name="introduction2" placeholder=""
-                            onChange={onTextareaHandler} maxLength="500"
+                        <label htmlFor="introduction2">태그</label>
+                        <textarea
+                            id="introduction2"
+                            name="introduction2"
+                            placeholder=""
+                            onChange={onTextareaHandler}
+                            maxLength="300"
                         ></textarea>
+                    </div>
+                    <div className='opening-hours'>
+                        <label htmlFor="openingHours">오픈 시간</label>
+                        <div className='opening-hours2'>
+                            <input type='time' id='openingHours' name='reservation-time'></input>
+                            <span> ~ </span>
+                            <input type='time' id='openingHours' name='reservation-time'></input>
+                        </div>
+                    </div>
+                    <div className='day-off'>
+                        <label htmlFor="dayOff">휴무일</label>
+                        <input
+                            type="text"
+                            id="dayOff"
+                            name="dayOff"
+                            value={dayOff}
+                            onChange={onDayOffChange}
+                            placeholder="ex) 매주 월요일, 격주 월요일"
+                        />
+                    </div>
+                    <div className='max-reservation-count'>
+                        <label htmlFor="maxReservationCount">최대 예약 건수</label>
+                        <select
+                            id="maxReservationCount"
+                            name="maxReservationCount"
+                            value={maxReservationCount}
+                            onChange={onMaxReservationCountChange}
+                        >
+                            <option value="">선택하세요</option>
+                            <option value="1">1 건</option>
+                            <option value="2">2 건</option>
+                            {/* Add more options as needed */}
+                        </select>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default Adminprofile;
