@@ -128,6 +128,9 @@ function Adminprofile(props) {
                             {/* Add more options as needed */}
                         </select>
                     </div>
+                    <div class="edit-button-container">
+                        <button className="edit-profile-button" onClick={() => props.navigate('/adminpage/adminprofile')}>수정하기</button>
+                    </div>
                 </div>
             </div>
         </div>

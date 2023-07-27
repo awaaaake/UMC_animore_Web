@@ -24,7 +24,7 @@ function App() {
         <Route path="/mypage" element={
           <Mypage></Mypage>}>
           <Route path="profile" element={
-            <Editprofile></Editprofile>
+            <Editprofile navigate={navigate}></Editprofile>
           }
           />
           <Route path="" element={

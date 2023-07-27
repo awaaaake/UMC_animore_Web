@@ -122,6 +122,25 @@
   justify-content: flex-end;
 }
 
+.edit-button-container{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.edit-profile-button{
+  padding: 10px 30px;
+  margin-top: 2%;
+  background-color: #B33E86;
+  color: #FFFFFF;
+  border: 2px solid #B33E86;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+
 /* 반응형 웹 스타일 */
 @media screen and (max-width: 768px) {
   .detail_1 {

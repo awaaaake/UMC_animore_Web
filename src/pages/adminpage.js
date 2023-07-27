@@ -64,6 +64,12 @@ function Adminpagemenu(props) {
           홈
         </li>
         <li
+          className={props.activeItem === '/adminpage/adminprofile' ? 'active' : ''}
+          onClick={() => props.handleItemClick('/adminpage/adminprofile')}
+        >
+          업체정보관리
+        </li>
+        <li
           className={props.activeItem === '/adminpage/reservation' ? 'active' : ''}
           onClick={() => props.handleItemClick('/adminpage/reservation')}
         >

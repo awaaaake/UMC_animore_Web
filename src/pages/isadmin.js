@@ -1,29 +1,52 @@
 import { useEffect, useState } from "react";
 import './isadmin.css';
-import key from '../img/key.png';
+import animore from '../img/animore.png';
 
 function Isadmin(props) {
     let password = '1234';
-    let [입력값, 입력값변경] = useState('');
+    let email = 'abc@gmail.com';
+    let [passwordInput, setPasswordInput] = useState('');
+    let [emailInput, setEmailInput] = useState('');
 
     return (
         <div className="admininfo">
-            <h2>비밀번호 재확인</h2>
-            <div className="content">
-                <img src={key} alt="열쇠" width="50"></img>
+            <div>
+                <img src={animore} alt="animore" width="300"></img>
+            </div>
+            <div className="admin-content">
                 <form>
-                    <p className="message1">비밀번호 재확인</p>
-                    <p className="message2">회원님은 관리자전용 계정입니다.</p>
-                    <p className="message2">2차 비밀번호를 입력해주세요</p>
-                    <input type="password" id="password" name="password" required placeholder="비밀번호 입력"
-                        onChange={(e) => { 입력값변경(e.target.value) }}
+                    <input
+                        type="email"
+                        id="admin-email"
+                        name="email"
+                        required
+                        placeholder="이메일을 입력해주세요"
+                        value={emailInput}
+                        onChange={(e) => setEmailInput(e.target.value)}
+                    />
+                    <input
+                        type="password"
+                        id="admin-password"
+                        name="password"
+                        required
+                        placeholder="비밀번호를 입력해주세요"
+                        value={passwordInput}
+                        onChange={(e) => setPasswordInput(e.target.value)}
                     />
                     <div>
-                        <button type="submit" className="confirm-button2"
-                            onClick={()=>{
-                                입력값 === password ? props.navigate("/adminpage") : alert('비밀번호가 틀렸습니다')
+                        <button
+                            type="submit"
+                            className="confirm-button9"
+                            onClick={() => {
+                                if (emailInput === email && passwordInput === password) {
+                                    props.navigate("/adminpage");
+                                } else {
+                                    alert('이메일 아이디 또는 비밀번호가 틀렸습니다');
+                                }
                             }}
-                        >확인</button>
+                        >
+                            로그인
+                        </button>
                     </div>
                 </form>
             </div>

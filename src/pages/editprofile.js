@@ -71,6 +71,9 @@ function Editprofile(props) {
                             <span>/1000 자</span>
                         </p>
                     </div>
+                    <div class="edit-button-container">
+                        <button className="edit-profile-button" onClick={() => props.navigate('/mypage/profile')}>수정하기</button>
+                    </div>
                 </div>
             </div>
         </div>

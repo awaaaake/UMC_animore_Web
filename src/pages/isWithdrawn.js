@@ -19,8 +19,8 @@ function IsWithdrawn(props) {
                     <select id="reasonForWithdrawal" name="reasonForWithdrawal" required
                         onChange={(e) => { 입력값변경(e.target.value) }}>
                         <option value="한정적인 지역으로 인한 정보 부족">한정적인 지역으로 인한 정보 부족</option>
-                        <option value="그냥">그냥</option>
-                        <option value="그만할래">그만할래</option>
+                        <option value="서비스 경험 불만족">서비스 경험 불만족</option>
+                        <option value="개인정보 보호">개인정보 보호</option>
                         {/* 다른 옵션들을 추가할 수 있습니다 */}
                     </select>
                     <div className="alert">
