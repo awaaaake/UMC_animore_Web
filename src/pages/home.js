@@ -3,10 +3,33 @@ import './home.css';
 import profile from '../img/dog.png';
 import grey from '../img/grey.png';
 import { Button, Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
-
+import axios from 'axios';
 
 function Home(props) {
     let [history, setHistory] = useState(['봉봉살롱', '도그뷰티', '까끌래보끌래']);
+    let [Info, setInfo] = useState(null);
+
+    useEffect(() => {
+        // localStorage에서 access token을 가져옵니다.
+        const accessToken = localStorage.getItem("accessToken");
+
+        // access token을 인증 헤더에 설정합니다.
+        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
+        axios.get('https://animore.co.kr//mypage')
+            .then((response) => {
+                // result 객체를 petInfo 상태로 설정합니다.
+                setInfo(response.data.result);
+            }).catch((error) => {
+                // 에러가 발생하면, 해당 에러 객체가 catch() 메서드의 매개변수인 error에 자동으로 전달됩니다.
+                console.error('Error fetching pet information:', error);
+            });
+    }, []);
+
+    // 데이터가 로딩 중일 때를 처리합니다.
+    if (Info === null) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="home">
@@ -14,8 +37,8 @@ function Home(props) {
                 <div className='info2'>
                     <img src={profile} alt="반려견 사진" />
                     <div className="info">
-                        <h4>OOO님 안녕하세요!</h4>
-                        <p>반려견 : 봉봉이(포메라니안) / 5살 / 중성화O</p>
+                        <h4>{Info.nickname}님 안녕하세요!</h4>
+                        <p>{Info.petType} : {Info.petName} / {Info.petAge}</p>
                     </div>
                 </div>
                 <button className="edit-profile-button" onClick={() => props.navigate('/mypage/profile')}>프로필 수정</button>
@@ -27,7 +50,7 @@ function Home(props) {
                         history.map(function (a, i) {
                             return (
                                 <Col sm>
-                                    <img src={grey} width="100%" height="250"  onClick={() => props.navigate(`/reservation/${history[i]}`)}
+                                    <img src={grey} width="100%" height="250" onClick={() => props.navigate(`/reservation/${history[i]}`)}
                                     ></img>
                                 </Col>
                             )
