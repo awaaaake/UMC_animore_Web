@@ -1,47 +1,60 @@
 import { useEffect, useState } from "react";
 import './memberInfo.css';
 import key from '../img/key.png';
-import { Button, Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 
 function Memberinfo(props) {
     let [password, setPassword] = useState('');
 
-    const handlePasswordCheck= () => {
-        axios.get('https://animore.co.kr/mypage/member/user/password', {
-            params: { pw: password} //params: 이 부분은 요청에 query parameter를 추가하는데 사용, password: password라는 이름의 query parameter를 설정
+    const accessToken = 'Bearer 사용자토큰';
+    // access token을 인증 헤더에 설정합니다.
+    axios.defaults.headers.common["Authorization"] = accessToken;
+
+    const handlePasswordCheck = (e) => {
+        e.preventDefault(); // 폼 제출 방지
+        /**
+         *  폼이 제출되지 않고, onSubmit 이벤트가 발생할 때 handlePasswordCheck 함수가 실행
+         * 이렇게 함으로써 Enter 키를 눌렀을 때도 폼이 제출되지 않고, 
+         * handlePasswordCheck 함수가 실행되어 비밀번호 확인이 가능
+         */
+        axios.get('/mypage/member/user/password', {
+            params: { password: password },
         })
-        .then((response)=>{
-            if (response.data.isSuccess) {
-                props.navigate('/mypage/userinfo-reset');
-            } else {
-                alert('비밀번호가 틀렸습니다.');
-            }
-        }).catch((error)=>{//에러가 발생하면, 해당 에러 객체가 catch() 메서드의 매개변수인 error에 자동으로 전달
-            console.error('Error checking password:', error);
-        });
+            .then((response) => {
+                console.log(response.data)
+                if (response.data.isSuccess) {
+                    props.navigate('/mypage/userinfo-reset');
+                } else {
+                    alert('비밀번호가 틀렸습니다.');
+                }
+            })
+            .catch((error) => {
+                console.error('Error checking password:', error);
+                alert('비밀번호 확인 중 오류가 발생했습니다.');
+            });
     };
 
     return (
         <div className="memberinfo">
-            <h2>회원정보수정</h2>
+            <h2>회원정보 수정</h2>
             <div className="content">
-                <img src={key} alt="열쇠" width="50"></img>
-                <form>
+                <form onSubmit={handlePasswordCheck}>
+                    <img src={key} alt="열쇠" width="50"></img>
                     <p className="message1">비밀번호 재확인</p>
-                    <p className="message2">회원정보수정을 원하시는 경우 비밀번호를 입력해주세요</p>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
+                    <p className="message2">회원정보수정을 원하시는 경우 비밀번호를 입력해주세요.</p>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
                         required placeholder="비밀번호 입력"
                         value={password}
-                        onChange={(e)=>{setPassword(e.target.value)}}   
+                        onChange={(e) => { setPassword(e.target.value) }}
                     />
                     <div>
-                    <button type="submit" className="confirm-button4"
-                            onClick={handlePasswordCheck}
-                    >확인</button>
+                        <button type="submit" className="confirm-button4">
+                            확인
+                        </button>
                     </div>
                 </form>
             </div>

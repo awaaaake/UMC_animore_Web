@@ -6,19 +6,18 @@ import { Button, Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 
 function Home(props) {
-    let [history, setHistory] = useState(['봉봉살롱', '도그뷰티', '까끌래보끌래']);
     let [Info, setInfo] = useState(null);
 
     useEffect(() => {
-        // localStorage에서 access token을 가져옵니다.
-        const accessToken = localStorage.getItem("accessToken");
-
+        //localStorage에서 access token을 가져옵니다.
+        const accessToken = 'Bearer 사용자토큰';
         // access token을 인증 헤더에 설정합니다.
-        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+        axios.defaults.headers.common["Authorization"] = accessToken;
 
-        axios.get('https://animore.co.kr//mypage')
+        axios.get('/mypage')
             .then((response) => {
                 // result 객체를 petInfo 상태로 설정합니다.
+                console.log(response.data.result);
                 setInfo(response.data.result);
             }).catch((error) => {
                 // 에러가 발생하면, 해당 에러 객체가 catch() 메서드의 매개변수인 error에 자동으로 전달됩니다.
@@ -47,11 +46,17 @@ function Home(props) {
                 <p>최근 이용 기록</p>
                 <Row>
                     {
-                        history.map(function (a, i) {
+                        Info.storeId_ImageUrl.map(function (item, i) {
+                            const storeId = Object.keys(item)[0]; //map함수에의해 item담기는 객체가 계속 변함
+                            const imageUrl = Object.values(item)[0];
                             return (
-                                <Col sm>
-                                    <img src={grey} width="100%" height="250" onClick={() => props.navigate(`/reservation/${history[i]}`)}
-                                    ></img>
+                                <Col sm key={i}>
+                                    <img
+                                        src={imageUrl}//{item[1]}이렇게하면 object의 두 번째 요소를 의미하는 것이 아닌, 딕셔너리의 키로 사용될 숫자 1에 해당하는 값을 가져옴
+                                        width="100%"//100%
+                                        height="250"
+                                        onClick={() => props.navigate(`/reservation/${storeId}`)}
+                                    />
                                 </Col>
                             )
                         })

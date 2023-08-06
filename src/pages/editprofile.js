@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import './editprofile.css';
 import defaultProfileImage from "../img/profile.png";
+import axios from "axios";
 
 function Editprofile(props) {
     let [inputCount, setInputCount] = useState(0);
@@ -23,6 +24,25 @@ function Editprofile(props) {
         setSelectedImage(file);
         setUseDefaultImage(false);
     };
+
+    let [Info, setInfo] = useState(null);
+
+    useEffect(() => {
+        //localStorage에서 access token을 가져옵니다.
+        const accessToken = 'Bearer 사용자토큰';
+        // access token을 인증 헤더에 설정합니다.
+        axios.defaults.headers.common["Authorization"] = accessToken;
+
+        axios.get('/mypage/profile')
+            .then((response) => {
+                // result 객체를 petInfo 상태로 설정합니다.
+                console.log(response.data.result);
+                setInfo(response.data.result);
+            }).catch((error) => {
+                // 에러가 발생하면, 해당 에러 객체가 catch() 메서드의 매개변수인 error에 자동으로 전달됩니다.
+                console.error('Error fetching pet information:', error);
+            });
+    }, []);
 
     return (
         <div className='detail'>

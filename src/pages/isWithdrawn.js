@@ -1,12 +1,28 @@
 import { useEffect, useState } from "react";
 import './isWithdrawn.css';
 import mark from '../img/mark.png';
-import alert from '../img/alert.png';
-import { Button, Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
+import alertImg from '../img/alert.png';
+import axios from "axios";
 
 function IsWithdrawn(props) {
-    let password = '1234';
     let [입력값, 입력값변경] = useState('');
+    
+    const accessToken = 'Bearer 사용자토큰';
+    // access token을 인증 헤더에 설정합니다.
+    axios.defaults.headers.common["Authorization"] = accessToken;
+
+    const withdrawal = () => {
+        axios.post('/mypage/member/remove')
+            .then((response) => {
+                console.log(response.data);
+                // 회원 탈퇴 성공 후 페이지 이동
+                props.navigate('/mypage/withdrawalConf');
+            })
+            .catch((error) => {
+                console.error('Error removing member:', error);
+                alert('회원 탈퇴 중 오류가 발생했습니다.');
+            });
+    }
 
     return (
         <div className="memberinfo">
@@ -25,7 +41,7 @@ function IsWithdrawn(props) {
                     </select>
                     <div className="alert">
                         <div className="alerttitle">
-                            <div><img src={alert} width="20" alt="alert"></img></div>
+                            <div><img src={alertImg} width="20" alt="alert"></img></div>
                             <p className="message3">탈퇴 안내</p>
                         </div>
                         <p className="message4">탈퇴확인 시, 15일간 휴면 계정으로 전환되며 15일 이후 완전히 삭제됩니다.</p>
@@ -33,7 +49,7 @@ function IsWithdrawn(props) {
                     </div>
                     <div className="button-group">
                         <button type="button" className="cancel-button"
-                            onClick={() => props.navigate('/mypage/withdrawalConf')}
+                            onClick={withdrawal}
                         >탈퇴확인</button>
                         <button type="submit" className="confirm-button"
                             onClick={() => {
@@ -44,7 +60,7 @@ function IsWithdrawn(props) {
                 </form>
             </div>
         </div>
-        
+
     )
 }
 

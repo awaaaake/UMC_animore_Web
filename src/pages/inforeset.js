@@ -5,6 +5,7 @@ import axios from "axios";
 function Inforeset(props) {
     let [showPetInfo, setShowPetInfo] = useState(false); // 반려동물 정보 수정 페이지 표시 여부 상태
     let [selectedButton, setSelectedButton] = useState('user');
+
     let handlePetInfoClick = () => {
         setShowPetInfo(true); // 반려동물 정보 수정 페이지를 표시
         setSelectedButton('pet');
@@ -15,11 +16,27 @@ function Inforeset(props) {
         setSelectedButton('user');
     };
 
-    let [userInfo, setUserInfo] = useState(null);
-    let [petInfo, setPetInfo] = useState(null);
+    let [userInfo, setUserInfo] = useState({});
+    let [petInfo, setPetInfo] = useState({});
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setPetInfo(prevPetInfo => ({
+            ...prevPetInfo,
+            [name]: value,
+        }));
+    };
+
+    const handleUserInfoChange = (e) => {
+        const { name, value } = e.target;
+        setUserInfo(prevUserInfo => ({
+            ...prevUserInfo,
+            [name]: value,
+        }));
+    };
 
     const updateUserInfo = () => {
-        axios.post('https://animore.co.kr/mypage/member/user', userInfo)
+        axios.post('/mypage/member/user', userInfo)
             .then((response) => {
                 console.log('사용자 정보 업데이트 성공:', response.data.result);
             }).catch((error) => {
@@ -28,27 +45,34 @@ function Inforeset(props) {
     }
 
     const updatePetInfo = () => {
-        axios.post('https://animore.co.kr/mypage/member/pet', petInfo)
+        axios.post('/mypage/member/pet', petInfo)
             .then((response) => {
-                console.log('반려동물 정보 업데이트 성공:', response.data.result);
+                console.log('반려동물 정보 업데이트 성공:', response.data.result[0]);
             }).catch((error) => {
                 console.error('반려동물 정보 업데이트 실패:', error);
             });
     }
 
     useEffect(() => {
-        axios.get('https://animore.co.kr/mypage/member/user')
+        //localStorage에서 access token을 가져옵니다.
+        const accessToken = 'Bearer 사용자토큰';
+        // access token을 인증 헤더에 설정합니다.
+        axios.defaults.headers.common["Authorization"] = accessToken;
+
+        axios.get('/mypage/member/user')
             .then((response) => {
                 // result 객체를 petInfo 상태로 설정
                 //"result" 필드에 해당하는 값이며, 이 값의 자료형은 객체(Object)
+                console.log(response.data.result);
                 setUserInfo(response.data.result);
             }).catch((error) => {//에러가 발생하면, 해당 에러 객체가 catch() 메서드의 매개변수인 error에 자동으로 전달
                 console.error('Error fetching pet information:', error);
             });
-        axios.get('https://animore.co.kr/mypage/member/pet')
+        axios.get('/mypage/member/pet')
             .then((response) => {
                 // result 객체를 petInfo 상태로 설정
-                setPetInfo(response.data.result);
+                console.log(response.data.result[0]);
+                setPetInfo(response.data.result[0]);
             }).catch((error) => {//에러가 발생하면, 해당 에러 객체가 catch() 메서드의 매개변수인 error에 자동으로 전달
                 console.error('Error fetching pet information:', error);
             });
@@ -78,22 +102,13 @@ function Inforeset(props) {
                                 <tr>
                                     <td>반려동물 이름</td>
                                     <td><input type="text" name="petName" value={petInfo.petName} required
-                                        onChange={(e) => {/*이벤트객체를 파라미터로 받아서*/
-                                            let copy = { ...petInfo };
-                                            copy.petName = e.target.value;/*항시 체크된 또는 체크되지않은 input의 value값이 state에 담기도록*/
-                                            setPetInfo(copy);
-                                        }}
+                                        onChange={handleInputChange}
                                     /></td>
                                 </tr>
                                 <tr>
                                     <td>반려동물 종류</td>
                                     <td>
-                                        <select name="petType" value={petInfo.petType} required onChange={(e) => {
-                                            /*선택된 옵션의 value값이 e.target.value에 저장되도록 한다.*/
-                                            let copy = { ...petInfo };
-                                            copy.petType = e.target.value;
-                                            setPetInfo(copy);
-                                        }}>
+                                        <select name="petType" value={petInfo.petType} required onChange={handleInputChange}>
                                             <option value="">선택</option>
                                             <option value="강아지">강아지</option>
                                             <option value="고양이">고양이</option>
@@ -103,66 +118,48 @@ function Inforeset(props) {
                                 <tr>
                                     <td>성별</td>
                                     <td>
-                                        <input type="checkbox" name="gender" value={petInfo.petGender}
-                                            checked={petInfo.petGender == '수컷'}  /*gender가 "남성"일 때 선택된 상태로 표시*/
-                                            onChange={(e) => {
-                                                let copy = { ...petInfo };
-                                                copy.petGender = e.target.value; //체크가 된 input의 value값을 저장한다.
-                                                setPetInfo(copy); //항시 state값에는 현재 체크된or체크되지않은 input의 value값이 담기도록한다.
-                                            }}
+                                        <input
+                                            type="checkbox"
+                                            name="petGender"
+                                            value="수컷"
+                                            checked={petInfo.petGender === '수컷'}
+                                            onChange={handleInputChange}
                                         /> 수컷
-                                        <input type="checkbox" name="gender" value={petInfo.petGender}
-                                            checked={petInfo.petGender == '암컷'}  /*gender가 "남성"일 때 선택된 상태로 표시*/
-                                            onChange={(e) => {
-                                                let copy = { ...petInfo };
-                                                copy.petGender = e.target.value; //체크가 된 input의 value값을 저장한다.
-                                                setPetInfo(copy); //항시 state값에는 현재 체크된or체크되지않은 input의 value값이 담기도록한다.
-                                            }}
+
+                                        <input
+                                            type="checkbox"
+                                            name="petGender"
+                                            value="암컷"
+                                            checked={petInfo.petGender === '암컷'}
+                                            onChange={handleInputChange}
                                         /> 암컷
-                                        <input type="checkbox" name="gender" value={petInfo.petGender}
-                                            checked={petInfo.petGender == '중성화'}  /*gender가 "남성"일 때 선택된 상태로 표시*/
-                                            onChange={(e) => {
-                                                let copy = { ...petInfo };
-                                                copy.petGender = e.target.value; //체크가 된 input의 value값을 저장한다.
-                                                setPetInfo(copy); //항시 state값에는 현재 체크된or체크되지않은 input의 value값이 담기도록한다.
-                                            }} /> 중성화
+
+                                        <input
+                                            type="checkbox"
+                                            name="petGender"
+                                            value="중성화"
+                                            checked={petInfo.petGender === '중성화'}
+                                            onChange={handleInputChange}
+                                        /> 중성화
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>반려동물 무게</td>
                                     <td><input type="text" name="petWeight" value={petInfo.petWeight} required
-                                        onChange={(e) => {/*이벤트객체를 파라미터로 받아서*/
-                                            let copy = { ...petInfo };
-                                            copy.petWeight = e.target.value;/*항시 체크된 또는 체크되지않은 input의 value값이 state에 담기도록*/
-                                            setPetInfo(copy);
-                                        }}
-                                    /></td>
-                                </tr>
-                                <tr>
-                                    <td>생년월일</td>
-                                    <td><input type="text" name="petBirthdate" value={petInfo.petBirth} required
-                                        onChange={(e) => {/*이벤트객체를 파라미터로 받아서*/
-                                            let copy = { ...petInfo };
-                                            copy.petBirth = e.target.value;/*항시 체크된 또는 체크되지않은 input의 value값이 state에 담기도록*/
-                                            setPetInfo(copy);
-                                        }}
+                                        onChange={handleInputChange}
                                     /></td>
                                 </tr>
                                 <tr>
                                     <td>특이사항</td>
-                                    <td><textarea name="petNotes" value={petInfo.petSpecials}
-                                        onChange={(e) => {/*이벤트객체를 파라미터로 받아서*/
-                                            let copy = { ...petInfo };
-                                            copy.petSpecials = e.target.value;/*항시 체크된 또는 체크되지않은 input의 value값이 state에 담기도록*/
-                                            setPetInfo(copy);
-                                        }}
+                                    <td><textarea name="petSpecials" value={petInfo.petSpecials}
+                                        onChange={handleInputChange}
                                     ></textarea></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <button className="resetinfo-button" onClick={()=> {
+                        <button className="resetinfo-button" onClick={() => {
                             updatePetInfo(); //onClick시 두개의 함수를 실행하고싶다면, 그냥{ }안에 ;로 끝나는 두 함수 작성
-                            props.navigate('/resetinfo');
+                            props.navigate('/mypage/userinfo-reset');
                         }}>반려동물정보 수정</button>
                     </form>
                 ) : (
@@ -172,80 +169,60 @@ function Inforeset(props) {
                                 <tr>
                                     <td>이메일</td>
                                     <td><input type="email" name="email" value={userInfo.email} required
-                                        onChange={(e) => {/*이벤트객체를 파라미터로 받아서*/
-                                            let copy = { ...userInfo };
-                                            copy.email = e.target.value;/*항시 체크된 또는 체크되지않은 input의 value값이 state에 담기도록*/
-                                            setUserInfo(copy);
-                                        }}
+                                        onChange={handleUserInfoChange}
                                     /></td>
                                 </tr>
                                 <tr>
                                     <td>비밀번호</td>
                                     <td><input type="password" name="password" value={userInfo.password} required
-                                        onChange={(e) => {/*이벤트객체를 파라미터로 받아서*/
-                                            let copy = { ...userInfo };
-                                            copy.password = e.target.value;/*항시 체크된 또는 체크되지않은 input의 value값이 state에 담기도록*/
-                                            setUserInfo(copy);
-                                        }}
+                                        onChange={handleUserInfoChange}
                                     /></td>
                                 </tr>
                                 <tr>
                                     <td>이름</td>
-                                    <td><input type="text" name="name" value={userInfo.nickname} required
-                                        onChange={(e) => {/*이벤트객체를 파라미터로 받아서*/
-                                            let copy = { ...userInfo };
-                                            copy.nickname = e.target.value;/*항시 체크된 또는 체크되지않은 input의 value값이 state에 담기도록*/
-                                            setUserInfo(copy);
-                                        }}
+                                    <td><input type="text" name="nickname" value={userInfo.nickname} required
+                                        onChange={handleUserInfoChange}
                                     /></td>
                                 </tr> {/*서버에서 전달받은 데이터를 value로 미리 띄울수있음, 즉 해당필드의 초기값을 지정할 수 있음
                                 -> 사용자가 필드를 수정하면 'value'값도 없데이트됨
                                 required속성으로 필수입력 필드임을 나타냄*/ }
                                 <tr>
                                     <td>생년월일</td>
-                                    <td><input type="text" name="birthdate" value={userInfo.birth} required
-                                        onChange={(e) => {/*이벤트객체를 파라미터로 받아서*/
-                                            let copy = { ...userInfo };
-                                            copy.birth = e.target.value;/*항시 체크된 또는 체크되지않은 input의 value값이 state에 담기도록*/
-                                            setUserInfo(copy);
-                                        }} /></td>
+                                    <td><input type="text" name="birthday" value={userInfo.birthday} required
+                                        onChange={handleUserInfoChange} /></td>
                                 </tr>
                                 <tr>
                                     <td>전화번호</td>
                                     <td><input type="tel" name="phone" value={userInfo.phone} required
-                                        onChange={(e) => {/*이벤트객체를 파라미터로 받아서*/
-                                            let copy = { ...userInfo };
-                                            copy.phone = e.target.value;/*항시 체크된 또는 체크되지않은 input의 value값이 state에 담기도록*/
-                                            setUserInfo(copy);
-                                        }}
+                                        onChange={handleUserInfoChange}
                                     /></td>
                                 </tr>
                                 <tr>
                                     <td>성별</td>
-                                    <td><input type="radio" name="gender" value={userInfo.gender}
-                                        checked={userInfo.gender == '남성'}
-                                        onChange={(e) => {/*이벤트객체를 파라미터로 받아서*/
-                                            let copy = { ...userInfo };
-                                            copy.gender = e.target.value;/*체크된 또는 체크되지않은 input의 value값이 담기도록*/
-                                            setUserInfo(copy);
-                                        }}
-                                    /> 남성
-                                        <input type="radio" name="gender" value={userInfo.gender}
-                                            checked={userInfo.gender == '여성'}
-                                            onChange={(e) => {/*이벤트객체를 파라미터로 받아서*/
-                                                let copy = { ...userInfo };
-                                                copy.gender = e.target.value;/*항시 체크된 또는 체크되지않은 input의 value값이 state에 담기도록*/
-                                                setUserInfo(copy);
-                                            }}
+                                    <td>
+                                        <input
+                                            type="radio"
+                                            name="gender"
+                                            value="남성"
+                                            checked={userInfo.gender === '남성'}
+                                            onChange={handleUserInfoChange}
+                                        /> 남성
+                                        <input
+                                            type="radio"
+                                            name="gender"
+                                            value="여성"
+                                            checked={userInfo.gender === '여성'}
+                                            onChange={handleUserInfoChange}
                                         /> 여성
                                     </td>
                                 </tr>
+
                             </tbody>
                         </table>
                         <button className="resetinfo-button" onClick={() => {
                             updateUserInfo();
-                            props.navigate('/resetinfo')
-                            }}>회원정보 수정</button>
+                            props.navigate('/mypage/userinfo-reset')
+                        }}>회원정보 수정</button>
                     </form>
                 )
             }
